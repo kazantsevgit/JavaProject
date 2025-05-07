@@ -7,5 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserDTO {
     public long id;
-    public String name;
+    public double wallet;
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
 }
