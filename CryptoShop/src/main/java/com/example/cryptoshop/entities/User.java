@@ -1,61 +1,65 @@
 package com.example.cryptoshop.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.List;
 
-import java.util.Collection;
-import java.util.Collections;
-
-
-@Data
 @Entity
-@Table (name = "users")
-public class User implements UserDetails {
+@Table(name = "users")
+public class User {
+
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "username")
+    private String username;
 
-    @Column (unique = true, nullable = false)
-    private String email;
-
-    @Column (nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @Column (name = "first_name")
-    private String firstName;
+    @Column(name = "enabled")
+    private boolean enabled;
 
-    @Column (name = "last_name")
-    private String lastName;
+    @OneToMany(mappedBy = "user")
+    private List<Authority> authorities;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
-    }
+    public User() {}
 
-    @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public String toString() {
+        return "User [" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                "]\n";
     }
 }
