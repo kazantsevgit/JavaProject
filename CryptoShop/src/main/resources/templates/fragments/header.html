@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title} ?: 'Мой сайт'">OOO "Бнал"</title>
+</head>
+<body>
+<!-- Фрагмент header -->
+<div th:fragment="header">
+    <header>
+        <nav>
+            <a th:href="@{/}">Главная</a> |
+            <a th:href="@{/about}">О нас</a> |
+            <a th:href="@{/contact}">Контакты</a>
+        </nav>
+        <h1>Добро пожаловать на мой сайт!</h1>
+    </header>
+</div>
