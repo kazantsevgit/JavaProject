@@ -17,7 +17,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Page<Product> getAllProducts(Pageable pageable) {
+    public Page<Crypto> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
@@ -37,7 +37,7 @@ public class ProductService {
     }
 
     // In future releases
-    public void addProduct(Product product) {
+    public void addProduct(Crypto product) {
         productRepository.save(product);
     }
 }

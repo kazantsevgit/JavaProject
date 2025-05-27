@@ -1,6 +1,8 @@
 package com.example.cryptoshop.entities;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,15 +11,14 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
-
-    @ManyToOne
-    @JoinColumn(name = "username")
-    private User user;
 
     public Order() {
     }
@@ -53,5 +54,13 @@ public class Order {
                 ", orderItems=" + orderItems +
                 ", user=" + user.getUsername() +
                 ']';
+    }
+
+    public void addOrderItem(OrderItem item) {
+        if (this.orderItems == null) {
+            this.orderItems = new ArrayList<>();
+        }
+        this.orderItems.add(item);
+        item.setOrder(this);
     }
 }

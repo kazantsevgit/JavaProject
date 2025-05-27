@@ -1,6 +1,8 @@
 package com.example.cryptoshop.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.List;
 
 @Entity
@@ -8,16 +10,19 @@ import java.util.List;
 public class User {
 
     @Id
-    @Column(name = "username")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password")
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "enabled")
+    @Column(nullable = false)
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Authority> authorities;
 
     public User() {}
@@ -46,8 +51,8 @@ public class User {
         this.enabled = enabled;
     }
 
-    public List<Authority> getAuthorities() {
-        return authorities;
+    public GrantedAuthority getAuthorities() {
+        return (GrantedAuthority) authorities;
     }
 
     public void setAuthorities(List<Authority> authorities) {

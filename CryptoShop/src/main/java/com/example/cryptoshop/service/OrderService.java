@@ -1,5 +1,10 @@
 package com.example.cryptoshop.service;
 
+import com.example.cryptoshop.entities.Authority;
+import com.example.cryptoshop.entities.Order;
+import com.example.cryptoshop.entities.OrderItem;
+import com.example.cryptoshop.entities.User;
+import com.example.cryptoshop.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +59,7 @@ public class OrderService {
 
     public List<Order> getCustomOrders(Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        List<Authority> authorities = user.getAuthorities();
+        List<Authority> authorities = (List<Authority>) user.getAuthorities();
         for (Authority authority : authorities) {
             if (authority.getAuthority().equals("ROLE_SELLER")) {
                 return getAllOrders();

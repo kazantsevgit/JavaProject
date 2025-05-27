@@ -7,12 +7,14 @@ import jakarta.persistence.*;
 public class Authority {
 
     @Id
-    @Column(name = "authority")
-    private String authority;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
+
+    private String authority;
 
     public Authority() {
     }

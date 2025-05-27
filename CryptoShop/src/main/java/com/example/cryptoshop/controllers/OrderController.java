@@ -1,7 +1,8 @@
 package com.example.cryptoshop.controllers;
 
-import com.example.cryptoshop.entity.Order;
-import com.example.cryptoshop.entity.User;
+
+import com.example.cryptoshop.entities.Order;
+import com.example.cryptoshop.entities.User;
 import com.example.cryptoshop.service.OrderService;
 import com.example.cryptoshop.service.UserService;
 import com.example.cryptoshop.util.ShoppingCart;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/orders")
@@ -49,7 +51,7 @@ public class OrderController {
 
     @GetMapping("/order-details/{id}")
     public String toOrderDetails(Model model, @PathVariable("id") Long id) {
-        Order selectedOrder = orderService.getOrderById(id);
+        Optional<Order> selectedOrder = Optional.ofNullable(orderService.getOrderById(id));
         model.addAttribute("selectedOrder", selectedOrder);
         return "order-details";
     }

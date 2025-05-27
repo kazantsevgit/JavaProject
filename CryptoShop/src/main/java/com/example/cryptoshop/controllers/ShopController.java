@@ -2,6 +2,8 @@ package com.example.cryptoshop.controllers;
 
 
 
+import com.example.cryptoshop.entities.Crypto;
+import com.example.cryptoshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,7 @@ public class ShopController {
 
     @GetMapping("/details/{id}")
     public String toDetails(Model model, @PathVariable("id") Long id) {
-        Product selectedProduct = productService.getProductById(id);
+        Crypto selectedProduct = productService.getProductById(id);
         model.addAttribute("selectedProduct", selectedProduct);
         return "details";
     }
